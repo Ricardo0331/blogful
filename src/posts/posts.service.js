@@ -12,12 +12,18 @@ function read(postId) {
   return knex("posts").select("*").where({ post_id: postId }).first();
 }
 
-function update(updatedPost) {
-  //your solution here
+function update(postId, updatedPost) {
+  return knex("posts")
+    .where({ post_id: postId })
+    .update(updatedPost)
+    .returning("*")
+    .then((rows) => rows[0]);
 }
 
 function destroy(postId) {
-  //your solution here
+  return knex("posts")
+    .where({ post_id: postId })
+    .del();
 }
 
 module.exports = {

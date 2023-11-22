@@ -18,14 +18,17 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
-  // your solution here
-  res.json({ data: "" });
+  const { postId } = req.params;
+  const updatedPost = await service.update(postId, req.body.data);
+  res.json({ data: updatedPost });
 }
 
 async function destroy(req, res) {
-  // your solution here
-  res.json({ data: "" });
+  const { postId } = req.params;
+  await service.destroy(postId);
+  res.sendStatus(204);
 }
+
 
 module.exports = {
   create: asyncErrorBoundary(create),
