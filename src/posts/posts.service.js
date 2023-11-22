@@ -1,8 +1,12 @@
 const knex = require("../db/connection");
 
 function create(post) {
-  //your solution here
+  return knex("posts")
+    .insert(post)
+    .returning("*")
+    .then((rows) => rows[0]);
 }
+
 
 function read(postId) {
   return knex("posts").select("*").where({ post_id: postId }).first();

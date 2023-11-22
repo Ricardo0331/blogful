@@ -11,9 +11,9 @@ async function commentExists(req, res, next) {
   return next({ status: 404, message: `Comment cannot be found.` });
 }
 
-async function list(req, res, next) {
-  // your solution here
-  res.json({ data: "" });
+async function list(req, res) {
+  const data = await service.list();
+  res.json({ data });
 }
 
 async function listCommenterCount(req, res, next) {
