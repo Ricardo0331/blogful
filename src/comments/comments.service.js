@@ -15,8 +15,19 @@ function listCommenterCount() {
 
 
 function read(commentId) {
-  // your solution here
+  return knex("comments")
+    .join("users", "comments.commenter_id", "users.user_id")
+    .join("posts", "comments.post_id", "posts.post_id")
+    .select(
+      "comments.comment_id",
+      "comments.comment",
+      "users.user_email as commenter_email",
+      "posts.post_body as commented_post"
+    )
+    .where({ "comments.comment_id": commentId })
+    .first();
 }
+
 
 module.exports = {
   list,
