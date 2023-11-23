@@ -25,7 +25,7 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   const { postId } = req.params;
-  await service.destroy(postId);
+  await service.delete(postId);
   res.sendStatus(204);
 }
 
