@@ -8,9 +8,15 @@ function listCommenterCount() {
   return knex("comments")
     .join("users", "comments.commenter_id", "users.user_id")
     .select("users.user_email as commenter_email")
-    .count("comments.comment as comment_count")
+    .count("comments.comment_id as count")
     .groupBy("users.user_email")
-    .orderBy("users.user_email");
+    .orderBy("users.user_email")
+    .then((results) => 
+      results.map((row) => ({
+        ...row,
+        count: parseInt(row.count),
+      }))
+    );
 }
 
 
